@@ -1,0 +1,29 @@
+{
+    "name": "Demo",
+    "description": "",
+    "version": "1.0",
+    "manifest_version": 3,
+    "icons": {
+        "16": "icon16.png",
+        "48": "icon48.png",
+        "128": "icon128.png"
+    },
+    "background": {
+        "service_worker": "background.js"
+      },
+    "content_scripts": [
+	    {
+	      "matches": ["<all_urls>"],
+          "run_at": "document_idle",
+	      "js": ["contentscript.js"]
+	    }],
+    "action": {
+        "default_title": "Get pages source",
+        "default_popup": "hello.html"
+        },
+    "permissions": [
+        "storage",
+        "activeTab",
+        "scripting"
+        ]
+  }
