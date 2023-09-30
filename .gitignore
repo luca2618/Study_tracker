@@ -1,5 +1,3 @@
 # ignores all .md files
-.csv
-.json
 *.csv
 *.json
