@@ -1,3 +1,5 @@
 # ignores all .md files
 *.csv
 *.json
+*.txt
+*.pickle
