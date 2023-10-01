@@ -85,6 +85,76 @@ var body = document.body;
                   file: "index.js"
               });
           });
+        //   chrome.storage.local.get("dataObject",function(res) {
+        //     console.log("Object is",res)
+        // });
+
+        // const obj = {
+        //   data: dataArr.push(2),
+        //   time: "123231"
+        // };
+        // var countProd = 0;
+        // chrome.storage.local.get("countProd", function(res){
+        //   console.log("where",res["countProd"])
+        //   if(typeof(res[countProd])===undefined){
+        //     res["countProd"] = 1
+        //   }
+        //   if(res["countProd"] && content==="productive"){
+        //     countProd  = res["data"] + 1;
+        //     console.log("ifcount is",countProd)
+
+        //     chrome.storage.local.set({
+        //       data: [ countProd,  countUnprod]
+        // }, function () {
+        //     chrome.tabs.executeScript({
+        //         file: "index.js"
+        //     });
+        // });
+        //   }
+        // })
+if(content==="productive"){
+  chrome.storage.local.get(["prod"]).then((result) => {
+    console.log("Value currently is " + result.prod);
+    if (typeof(result.prod) === 'undefined'){
+        
+        chrome.storage.local.set({ prod: 0 }).then(() => {
+            console.log("Value is set to 0");
+          });
+        chrome.storage.local.get(["prod"]).then((result) => {
+        console.log("Value currently is " + string(result.prod));
+        });
+}else{
+chrome.storage.local.set({ prod: result.prod+1 }).then(() => {
+  console.log("Value is set to prod");
+});
+
+}
+  });
+}else{
+  chrome.storage.local.get(["unprod"]).then((result) => {
+    console.log("Value currently is " + result.unprod);
+    if (typeof(result.unprod) === 'undefined'){
+        
+        chrome.storage.local.set({ unprod: 0 }).then(() => {
+            console.log("Value is set to 0");
+          });
+        chrome.storage.local.get(["unprod"]).then((result) => {
+        console.log("Value currently is " + string(result.unprod));
+        });
+}else{
+chrome.storage.local.set({ unprod: result.unprod+1 }).then(() => {
+  console.log("Value is set to unprod");
+});
+
+}
+  });
+}
+        
+
+
+      
+  
+ 
   
           })()
         }catch(error){
