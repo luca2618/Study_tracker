@@ -203,10 +203,9 @@ var myPiechart = new PieChart({
 
 myPiechart.draw();
 
-key = "current"
 chrome.storage.local.get(["current"]).then((result) => {
     console.log("Value currently is " + result.current);
-    if (typeof result.current === 'undefined'){
+    if (typeof(result.current) === 'undefined'){
         value = "productive"
         chrome.storage.local.set({ current: value }).then(() => {
             console.log("Value is set to "+value);
