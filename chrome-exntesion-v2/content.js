@@ -1,4 +1,4 @@
-const { timeLog } = require("console");
+
 
 var body = document.body;
 
@@ -41,47 +41,62 @@ var body = document.body;
     }
   );
 
+  function getAllData(){
     if(body){
-    //   chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
-    //     let url = tabs[0].url;
-    //     // use `url` here inside the callback because it's asynchronous!
-    //     console.log(url);
-    // });
+      //   chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+      //     let url = tabs[0].url;
+      //     // use `url` here inside the callback because it's asynchronous!
+      //     console.log(url);
+      // });
+          
+          // Get all the text content within the <body> element
+          var data = getAllTextContent(body);
+  
+        try{
+          (async () => {
         
-        // Get all the text content within the <body> element
-        var data = getAllTextContent(body);
-
-      try{
-        (async () => {
-      
-        const rawResponse = await fetch('http://localhost:8000/classify?data='+data, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-          },
-          body: ""
-        });
-        const content = await rawResponse.json();
-        console.log("Content is ",content);
-        
-        const today = new Date();
-        const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        
-        chrome.storage.local.set({
-            data: content,
-            time: time
-        }, function () {
-            chrome.tabs.executeScript({
-                file: "index.js"
-            });
+          const rawResponse = await fetch('http://localhost:8000/classify?data='+data, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+            },
+            body: ""
+          });
+          const content = await rawResponse.json();
+          console.log("Content is ",content);
+          const today = new Date();
+          const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+          console.log(time)
+          chrome.storage.local.get("dataObject",function(res) {
+            console.log("Object is",res)
         });
 
-        })()
-      }catch(error){
-      console.log(error)
-    };
-    }
+        const obj = {
+          data: dataArr.push(2),
+          time: "123231"
+        };
+  
+          chrome.storage.local.set({
+                dataObject: content
+          }, function () {
+              chrome.tabs.executeScript({
+                  file: "index.js"
+              });
+          });
+  
+          })()
+        }catch(error){
+        console.log(error)
+      };
+      }
+  }
+
+
+  setInterval(() => {
+    getAllData();
+  }, 5000);
+
       
       // Function to recursively get all text content within an element
       function getAllTextContent(element) {
@@ -98,5 +113,5 @@ var body = document.body;
           }
         }
       
-        return text;
+      return text;
 }
