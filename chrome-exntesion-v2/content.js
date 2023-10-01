@@ -68,23 +68,23 @@ var body = document.body;
           const today = new Date();
           const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
           console.log(time)
-          chrome.storage.local.get("dataObject",function(res) {
-            console.log("Object is",res)
-          });
+          // chrome.storage.local.get("dataObject",function(res) {
+          //   console.log("Object is",res)
+          // });
         
 
-        const obj = {
-          data: dataArr.push(2),
-          time: "123231"
-        };
+        // const obj = {
+        //   data: dataArr.push(2),
+        //   time: "123231"
+        // };
   
-          chrome.storage.local.set({
-                dataObject: content
-          }, function () {
-              chrome.tabs.executeScript({
-                  file: "index.js"
-              });
-          });
+          // chrome.storage.local.set({
+          //       dataObject: content
+          // }, function () {
+          //     chrome.tabs.executeScript({
+          //         file: "index.js"
+          //     });
+          // });
         //   chrome.storage.local.get("dataObject",function(res) {
         //     console.log("Object is",res)
         // });
@@ -128,6 +128,10 @@ chrome.storage.local.set({ prod: result.prod+1 }).then(() => {
   console.log("Value is set to prod");
 });
 
+chrome.storage.local.set({ current: "productive" }).then(() => {
+  console.log("Value is set to ");
+});
+
 }
   });
 }else{
@@ -144,6 +148,9 @@ chrome.storage.local.set({ prod: result.prod+1 }).then(() => {
 }else{
 chrome.storage.local.set({ unprod: result.unprod+1 }).then(() => {
   console.log("Value is set to unprod");
+});
+chrome.storage.local.set({ current: "unproductive" }).then(() => {
+  console.log("Value is set to ");
 });
 
 }
