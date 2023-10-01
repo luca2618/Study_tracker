@@ -228,7 +228,23 @@ var myPiechart = new PieChart({
     console.log("Value currently is " + result.current);
     document.getElementById("current").innerHTML = "Current:"+result.current;
   });
+
+  document.querySelector('.click').addEventListener('click', (e) => {
+    // Do whatever you want
+    e.target.textContent = 'Cleared!';
+  
+    chrome.storage.local.set({ prod: 0 }).then(() => {
+      console.log("Value prod reset");
+    });
+    chrome.storage.local.set({ unprod: 0 }).then(() => {
+      console.log("Value unprod reset");
+    });
+  });
+
 }, 100);setTimeout()
+
+
+
 
 
 
