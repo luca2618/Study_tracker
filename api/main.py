@@ -1,8 +1,12 @@
 from fastapi import FastAPI, Body
 from fastapi.middleware.cors import CORSMiddleware
 from classifier import predict
+from pydantic import BaseModel
 
 app = FastAPI()
+
+class Data(BaseModel):
+    input: str
 
 origins = ["*"]
 app.add_middleware(
@@ -24,6 +28,7 @@ async def read_user_item(item_id: str):
 #uvicorn main:app --reload
 @app.post("/classify")
 async def read_post(data: str):
+    print(data)
     result = predict(data)
     print(result)
     return result[0]

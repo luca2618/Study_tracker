@@ -70,7 +70,8 @@ var body = document.body;
           console.log(time)
           chrome.storage.local.get("dataObject",function(res) {
             console.log("Object is",res)
-        });
+          });
+        
 
         const obj = {
           data: dataArr.push(2),
