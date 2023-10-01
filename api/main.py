@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Body
 from fastapi.middleware.cors import CORSMiddleware
+from classifier import predict
 
 app = FastAPI()
 
@@ -13,16 +14,19 @@ app.add_middleware(
 )
 
 #uvicorn main:app --reload
-@app.get("/classify/{item_id}")
+@app.get("/get_classify/{item_id}")
 async def read_user_item(item_id: str):
     print(item_id)
-    return item_id
+    result = predict(item_id)
+    print(result)
+    return result[0]
 
 #uvicorn main:app --reload
-@app.post("/post")
+@app.post("/classify")
 async def read_post(data: str):
-    print(data)
-    return data
+    result = predict(data)
+    print(result)
+    return result[0]
 
 @app.get("/hello")
 async def root():

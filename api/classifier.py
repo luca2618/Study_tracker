@@ -1,24 +1,9 @@
-import pandas as pd
-import math
 import numpy as np
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.model_selection import KFold
-from sklearn.model_selection import train_test_split
-from sklearn.model_selection import GridSearchCV
 from sklearn.neural_network import MLPClassifier
 from sklearn.neighbors import KNeighborsClassifier as KNN
-from sklearn.pipeline import Pipeline
-
-from sklearn.linear_model import LogisticRegression
-from sklearn.linear_model import Perceptron
-from sklearn.svm import LinearSVC
-from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import StandardScaler
 import warnings
 warnings.simplefilter("ignore")
 import pickle
-import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from nltk.stem import PorterStemmer
@@ -46,7 +31,7 @@ class My_Tokenizer(object):
 class glove():
     def __init__(self) -> None:
         #self.glove = glove_loaded
-        with open('./classifier/glove.pickle', 'rb') as f:
+        with open('glove.pickle', 'rb') as f:
             self.glove = pickle.load(f)
             f.close()
         self.tokenizer = My_Tokenizer()
@@ -67,21 +52,24 @@ class glove():
         return results
 
 
-dataset = pd.read_csv("./classifier/dataset.csv")
+#dataset = pd.read_csv("./api/dataset.csv")
 
-X = dataset["X"].to_numpy()
-Y = dataset["Y"].to_numpy()
+#X = dataset["X"].to_numpy()
+#Y = dataset["Y"].to_numpy()
 
 
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.15, random_state=42, shuffle=True)
+#X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.15, random_state=42, shuffle=True)
 
 vectorizer = glove()
  
-X_test = vectorizer.transform(X_test)
+#X_test = vectorizer.transform(X_test)
 
-model = pickle.load(open("./classifier/model.pickle", "rb"))
+model = pickle.load(open("model.pickle", "rb"))
 
-print(sum(model.predict(X_test) == Y_test)/len(Y_test))
+#print(sum(model.predict(X_test) == Y_test)/len(Y_test))
 
+def predict(x):
+    x = vectorizer.transform([x])
+    return model.predict(x)
 
 
