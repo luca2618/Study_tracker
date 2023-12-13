@@ -1,2 +1,2 @@
-# Study_tracker
+# TimeTrek
  
